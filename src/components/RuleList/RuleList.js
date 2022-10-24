@@ -1,42 +1,16 @@
+import { useContext } from "react";
 import styled from "styled-components";
 
 import Rule from "./Rule";
+import Loader from "../Loader";
 import { ThemeContext } from "../../ThemeContext";
-import { useContext } from "react";
 
-const StyledRuleList = styled.section`
-  .theme {
-    padding: 5px 10px;
-    border: none;
-    font-weight: 600;
-    font-size: 15px;
-    display: block;
-    margin: 10px auto;
-    border-radius: 5px;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-      padding: 5px 20px;
-      cursor: pointer;
-    }
-  }
-
+const StyledRuleList = styled.div`
   &.light {
-    h1 {
-      color: #2d2d2d;
-      font-size: 4rem;
-      text-align: center;
-    }
-
-    .theme {
-      background: #2d2d2d;
-      color: #e3e3e3;
-    }
-
-    main {
+    > div {
       margin: 0 auto;
 
-      > div {
+      section {
         background-color: #e3e3e3;
         border-radius: 5px;
         padding: 1rem 2rem;
@@ -46,16 +20,10 @@ const StyledRuleList = styled.section`
   }
 
   &.dark {
-    h1 {
-      color: white;
-      font-size: 4rem;
-      text-align: center;
-    }
-
-    main {
+    > div {
       margin: 0 auto;
 
-      > div {
+      section {
         background-color: #cdcdcd;
         border-radius: 5px;
         padding: 1rem 2rem;
@@ -66,7 +34,7 @@ const StyledRuleList = styled.section`
 `;
 
 const RuleList = ({ rules, setRules }) => {
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   const deleteRule = (ruleId) => {
     if (
@@ -79,32 +47,18 @@ const RuleList = ({ rules, setRules }) => {
     }
   };
 
-  const changeTheme = () => {
-    theme === "light" ? setTheme("dark") : setTheme("light");
-  };
-
-  return (
+  return rules.length !== 0 ? (
     <StyledRuleList className={theme}>
-      <header>
-        <h1>Leave the code cleaner than you found it.</h1>
-        <button
-          className="theme"
-          onClick={() => {
-            changeTheme();
-          }}
-        >
-          Switch Theme
-        </button>
-      </header>
-
-      <main>
+      <div>
         {rules.map((rule, id) => (
-          <div key={id}>
+          <section key={id}>
             <Rule id={id} deleteRuleFunc={deleteRule} {...rule} />
-          </div>
+          </section>
         ))}
-      </main>
+      </div>
     </StyledRuleList>
+  ) : (
+    <Loader />
   );
 };
 

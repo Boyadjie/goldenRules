@@ -6,6 +6,7 @@ const SvgLoader = styled.svg`
   background: none;
   display: block;
   shape-rendering: auto;
+  margin-top: 10rem;
 `;
 
 const Loader = () => {

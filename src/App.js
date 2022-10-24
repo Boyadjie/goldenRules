@@ -1,20 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
-import styled from "styled-components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import RuleList from "./components/RuleList/RuleList";
-import Loader from "./components/Loader";
 import { ThemeContext } from "./ThemeContext";
 import GlobalStyle from "./GlobalStyle";
-
-const LoaderContainer = styled.div`
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+import Layout from "./components/Layout";
+import RuleForm from "./components/RuleList/RuleForm";
 
 const App = () => {
-  const [rulesData, setRulesData] = useState({ loaded: false, data: null });
+  const [rulesData, setRulesData] = useState({ loaded: false, data: [] });
   const [theme, setTheme] = useState("light");
   // Create a memoized value for context, keeping reference across renders
   const themeContextValue = useMemo(
@@ -24,33 +18,44 @@ const App = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch("./data/rules.json");
+      const result = await fetch("/data/rules.json");
       result.json().then((data) => {
         setRulesData({ loaded: true, data: data });
       });
     };
-
-    const timer = setTimeout(() => {
-      fetchData();
-    }, 1500);
-
-    // executed when the conponent is unmounted
-    return () => {
-      clearTimeout(timer);
-    };
+    fetchData();
   }, []);
 
   return (
     <ThemeContext.Provider value={themeContextValue}>
       <GlobalStyle theme={theme}></GlobalStyle>
-      {!rulesData.loaded && (
-        <LoaderContainer>
-          <Loader />
-        </LoaderContainer>
-      )}
-      {rulesData.loaded && (
-        <RuleList rules={rulesData.data} setRules={setRulesData} />
-      )}
+      <BrowserRouter>
+        <Routes>
+          <Route path="" element={<Layout />}>
+            <Route
+              exact
+              path="/"
+              element={
+                <RuleList rules={rulesData.data} setRules={setRulesData} />
+              }
+            />
+            <Route
+              exact
+              path="/new"
+              element={
+                <RuleForm rules={rulesData.data} setRules={setRulesData} />
+              }
+            />
+            <Route
+              exact
+              path="/edit/:id"
+              element={
+                <RuleForm rules={rulesData.data} setRules={setRulesData} />
+              }
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </ThemeContext.Provider>
   );
 };
