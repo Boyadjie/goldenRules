@@ -1,21 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import {
-  faCaretDown,
-  faCaretRight,
-  faThumbsUp,
-  faThumbsDown,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
 import RuleList from "./components/RuleList/RuleList";
 import Loader from "./components/Loader";
 import { ThemeContext } from "./ThemeContext";
 import GlobalStyle from "./GlobalStyle";
-
-library.add(fas, faCaretDown, faCaretRight, faThumbsUp, faThumbsDown, faTrash);
 
 const LoaderContainer = styled.div`
   height: 100vh;
@@ -41,9 +30,14 @@ const App = () => {
       });
     };
 
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       fetchData();
     }, 1500);
+
+    // executed when the conponent is unmounted
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   return (

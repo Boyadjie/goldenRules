@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
 import BtnLike from "../Buttons/BtnLike";
 import BtnDelete from "../Buttons/BtnDelete";
@@ -50,16 +51,16 @@ const Rule = ({ id, title, description, deleteRuleFunc }) => {
       >
         <RuleTitle>{title}</RuleTitle>
         <ArrowButton>
-          {!folded && <FontAwesomeIcon icon="fa-solid fa-caret-right" />}
-          {folded && <FontAwesomeIcon icon="fa-solid fa-caret-down" />}
+          {!folded && <FontAwesomeIcon icon={faCaretRight} />}
+          {folded && <FontAwesomeIcon icon={faCaretDown} />}
         </ArrowButton>
       </FlexInline>
       {folded && (
         <div>
           {description && <RuleDescription>{description}</RuleDescription>}
           <ButtonsContainer>
-            <BtnLike title="+1" iconName="fa-thumbs-up" />
-            <BtnLike title="-1" iconName="fa-thumbs-down" />
+            <BtnLike title="+1" iconName="like" />
+            <BtnLike title="-1" iconName="disLike" />
             <BtnDelete deleteRuleFunc={deleteRuleFunc} id={id} />
           </ButtonsContainer>
         </div>

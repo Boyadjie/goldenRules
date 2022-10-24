@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const StyledButton = styled.button`
   padding: 0.5rem 1rem;
@@ -12,7 +13,7 @@ const StyledButton = styled.button`
 const BtnDelete = ({ id, deleteRuleFunc }) => {
   return (
     <StyledButton type="button" title="del" onClick={() => deleteRuleFunc(id)}>
-      <FontAwesomeIcon icon="fa-solid fa-trash" />
+      <FontAwesomeIcon icon={faTrash} />
     </StyledButton>
   );
 };

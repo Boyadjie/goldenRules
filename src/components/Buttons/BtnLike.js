@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 
 const StyledButton = styled.button`
   padding: 0.5rem 1rem;
@@ -18,7 +19,8 @@ const BtnLike = ({ title, iconName }) => {
 
   return (
     <StyledButton type="button" title={title} onClick={handleClick}>
-      {value} <FontAwesomeIcon icon={`fa-solid ${iconName}`} />
+      {value}{" "}
+      <FontAwesomeIcon icon={iconName === "like" ? faThumbsUp : faThumbsDown} />
     </StyledButton>
   );
 };
