@@ -18,7 +18,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch("/data/rules.json");
+      const result = await fetch("/rules");
       result.json().then((data) => {
         setRulesData({ loaded: true, data: data });
       });
