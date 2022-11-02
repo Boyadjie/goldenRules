@@ -1,10 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { ThemeContext } from "../../ThemeContext";
 
 const StyledForm = styled.form`
   padding: 2rem;
   margin: 3rem;
+
+  label {
+    font-size: 18px;
+
+    .required {
+      color: red;
+    }
+  }
+
+  .error {
+    color: red;
+    font-size: 18px;
+  }
 
   div > *,
   input[type="submit"] {
@@ -18,6 +32,7 @@ const StyledForm = styled.form`
     font-size: 2rem;
     padding: 5px 10px;
     font-weight: 500;
+    resize: none;
   }
 
   input[type="submit"] {
@@ -34,6 +49,18 @@ const StyledForm = styled.form`
       cursor: pointer;
     }
   }
+
+  &.light {
+    label {
+      color: #2d2d2d;
+    }
+  }
+
+  &.dark {
+    label {
+      color: #e3e3e3;
+    }
+  }
 `;
 
 const RuleForm = ({ rules, setRules }) => {
@@ -42,6 +69,7 @@ const RuleForm = ({ rules, setRules }) => {
   const [titleErrors, setTitleErrors] = useState([]);
   const [descriptionErrors, setDescriptionErrors] = useState([]);
   const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     if (id) {
@@ -145,11 +173,20 @@ const RuleForm = ({ rules, setRules }) => {
       onSubmit={(e) => {
         handleSubmit(e);
       }}
+      className={theme}
     >
       <div>
         <label htmlFor="title">
           Title<span className="required">*</span> :
         </label>
+        {titleErrors &&
+          titleErrors.map((error, index) => {
+            return (
+              <p key={index} className="error">
+                /!\ {error}
+              </p>
+            );
+          })}
         <input
           type="text"
           name="title"
@@ -159,18 +196,18 @@ const RuleForm = ({ rules, setRules }) => {
             handleChange(e);
           }}
         />
-        {titleErrors &&
-          titleErrors.map((error, index) => {
+      </div>
+
+      <div>
+        <label htmlFor="description">Description :</label>
+        {descriptionErrors &&
+          descriptionErrors.map((error, index) => {
             return (
               <p key={index} className="error">
                 /!\ {error}
               </p>
             );
           })}
-      </div>
-
-      <div>
-        <label htmlFor="description">Description :</label>
         <textarea
           cols="30"
           rows="10"
@@ -181,14 +218,6 @@ const RuleForm = ({ rules, setRules }) => {
             handleChange(e);
           }}
         />
-        {descriptionErrors &&
-          descriptionErrors.map((error, index) => {
-            return (
-              <p key={index} className="error">
-                /!\ {error}
-              </p>
-            );
-          })}
       </div>
       <input type="submit" />
     </StyledForm>
