@@ -52,9 +52,9 @@ app.post("/rules/new-rule", (req, res) => {
         console.log("An error has occurred ", error);
         return;
       }
-      console.log("New Rule added successfully to json");
+      console.log("New Rule successfully added to json");
     });
-    res.status(201).send(`Product ${req.body.title} has been created`);
+    return res.status(201).send(`Rule ${req.body.title} has been created`);
   }
 });
 
@@ -80,9 +80,9 @@ app.put("/rules/:id", (req, res) => {
           console.log("An error has occurred ", error);
           return;
         }
-        console.log("Rule updated successfully");
+        console.log(`Rule ${id} updated successfully`);
       });
-      return res.status(201).send(`Product ${req.body.title} has been updated`);
+      return res.status(201).send(`Rule ${req.body.title} has been updated`);
     } else {
       const newData = [
         ...data,
@@ -100,9 +100,9 @@ app.put("/rules/:id", (req, res) => {
           console.log("An error has occurred ", error);
           return;
         }
-        console.log("Rule created successfully");
+        console.log(`Rule ${id} created successfully`);
       });
-      res.status(201).send(`Product ${req.body.title} has been created`);
+      return res.status(201).send(`Rule ${req.body.title} has been created`);
     }
   }
 });
@@ -126,9 +126,9 @@ app.patch("/rules/:id", (req, res) => {
         console.log("An error has occurred ", error);
         return;
       }
-      console.log("Rule updated successfully");
+      console.log(`Rule ${id} updated successfully`);
     });
-    return res.status(200).send(`Rule ${id} has been updated`);
+    return res.status(200).send(`Rule ${req.body.title} has been updated`);
   } else {
     return res.status(404).send(`Error: no rule found`);
   }
@@ -145,9 +145,9 @@ app.delete("/rules/:id", (req, res) => {
         console.log("An error has occurred ", error);
         return;
       }
-      console.log("Rule deleted successfully");
+      console.log(`Rule ${id} deleted successfully`);
     });
-    return res.status(200).send(`Rule ${id} has been deleted`);
+    return res.status(200).send(`Rule ${req.body.title} has been deleted`);
   } else {
     return res.status(404).send(`Error: no rule found`);
   }

@@ -15,17 +15,7 @@
   },
   {
     "id": 3,
-    "title": "Always use === in JavaScript!"
-  },
-  {
-    "id": 4,
-    "title": "Use REST when I create an API",
-    "description": "REST is a great paradigm to create API",
-    "likes": 0,
-    "dislikes": 0,
-    "tags": [
-      "backend",
-      "API"
-    ]
+    "title": "Always use === in JavaScript!",
+    "description": "Because == do not check the type !"
   }
 ]

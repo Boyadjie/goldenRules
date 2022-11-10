@@ -44,6 +44,10 @@ const RuleList = ({ rules, setRules }) => {
     ) {
       rules.splice(ruleId, 1);
       setRules({ loaded: true, data: rules });
+
+      fetch(`/rules/${ruleId}`, { method: "DELETE" })
+        .then((resp) => resp.text())
+        .then((res) => window.alert(res));
     }
   };
 

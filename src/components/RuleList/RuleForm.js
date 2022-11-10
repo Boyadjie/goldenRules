@@ -152,6 +152,18 @@ const RuleForm = ({ rules, setRules }) => {
           };
 
           setRules({ loaded: true, data: newRules });
+          const requestOptions = {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              title: ruleDatas.title,
+              description: ruleDatas.description,
+            }),
+          };
+          fetch(`/rules/${id}`, requestOptions)
+            .then((resp) => resp.text())
+            .then((res) => window.alert(res));
+          navigate(`/`);
         }
       } else {
         if (window.confirm(`You will create a new Rule : ${ruleDatas.title}`)) {
@@ -161,10 +173,21 @@ const RuleForm = ({ rules, setRules }) => {
           ];
 
           setRules({ loaded: true, data: newRules });
+          const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              title: ruleDatas.title,
+              description: ruleDatas.description,
+            }),
+          };
+          fetch("/rules/new-rule", requestOptions)
+            .then((resp) => resp.text())
+            .then((res) => window.alert(res));
+
+          navigate(`/`);
         }
       }
-
-      navigate(`/`);
     }
   };
 
