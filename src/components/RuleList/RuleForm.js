@@ -152,10 +152,7 @@ const RuleForm = ({ rules, setRules }) => {
               description: ruleDatas.description,
             }),
           };
-          fetch(
-            `https://golden-rules-server.vercel.app/rules/${id}`,
-            requestOptions
-          )
+          fetch(`/rules/${id}`, requestOptions)
             .then((resp) => resp.json())
             .then((res) => setRules({ loaded: true, data: res }));
           navigate(`/`);
@@ -170,10 +167,7 @@ const RuleForm = ({ rules, setRules }) => {
               description: ruleDatas.description,
             }),
           };
-          fetch(
-            "https://golden-rules-server.vercel.app/rules/new-rule",
-            requestOptions
-          )
+          fetch("/rules/new-rule", requestOptions)
             .then((resp) => resp.json())
             .then((res) => setRules({ loaded: true, data: res }));
 
