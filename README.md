@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+## Back-end :
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+https://github.com/Boyadjie/goldenRules-server
 
 ## Available Scripts
 
