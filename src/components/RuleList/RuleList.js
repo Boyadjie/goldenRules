@@ -39,10 +39,15 @@ const RuleList = ({ rules, setRules }) => {
   const deleteRule = (ruleId) => {
     if (
       window.confirm(
-        `The Rule Nº${ruleId + 1}: "${rules[ruleId].title}" will be delete!`
+        `The Rule Nº${ruleId}: "${rules[ruleId].title}" will be delete!`
       )
     ) {
-      fetch(`/rules/${ruleId}`, { method: "DELETE" })
+      const requestOptions = {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      };
+
+      fetch(`/rules/${ruleId}`, requestOptions)
         .then((resp) => resp.json())
         .then((res) => setRules({ loaded: true, data: res }));
     }
@@ -53,7 +58,7 @@ const RuleList = ({ rules, setRules }) => {
       <div>
         {rules.map((rule, id) => (
           <section key={id}>
-            <Rule id={id} deleteRuleFunc={deleteRule} {...rule} />
+            <Rule id={rule.id} deleteRuleFunc={deleteRule} {...rule} />
           </section>
         ))}
       </div>
