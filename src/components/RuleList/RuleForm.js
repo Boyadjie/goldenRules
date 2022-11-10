@@ -144,14 +144,6 @@ const RuleForm = ({ rules, setRules }) => {
     if (titleValidation === true && descriptionValidation === true) {
       if (id) {
         if (window.confirm(`You will Update the Rule : ${ruleDatas.title}`)) {
-          const newRules = [...rules];
-
-          newRules[id] = {
-            title: ruleDatas.title,
-            description: ruleDatas.description,
-          };
-
-          setRules({ loaded: true, data: newRules });
           const requestOptions = {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
@@ -161,18 +153,12 @@ const RuleForm = ({ rules, setRules }) => {
             }),
           };
           fetch(`/rules/${id}`, requestOptions)
-            .then((resp) => resp.text())
-            .then((res) => window.alert(res));
+            .then((resp) => resp.json())
+            .then((res) => setRules({ loaded: true, data: res }));
           navigate(`/`);
         }
       } else {
         if (window.confirm(`You will create a new Rule : ${ruleDatas.title}`)) {
-          const newRules = [
-            ...rules,
-            { title: ruleDatas.title, description: ruleDatas.description },
-          ];
-
-          setRules({ loaded: true, data: newRules });
           const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -182,8 +168,8 @@ const RuleForm = ({ rules, setRules }) => {
             }),
           };
           fetch("/rules/new-rule", requestOptions)
-            .then((resp) => resp.text())
-            .then((res) => window.alert(res));
+            .then((resp) => resp.json())
+            .then((res) => setRules({ loaded: true, data: res }));
 
           navigate(`/`);
         }

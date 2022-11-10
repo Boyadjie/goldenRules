@@ -42,12 +42,9 @@ const RuleList = ({ rules, setRules }) => {
         `The Rule Nº${ruleId + 1}: "${rules[ruleId].title}" will be delete!`
       )
     ) {
-      rules.splice(ruleId, 1);
-      setRules({ loaded: true, data: rules });
-
       fetch(`/rules/${ruleId}`, { method: "DELETE" })
-        .then((resp) => resp.text())
-        .then((res) => window.alert(res));
+        .then((resp) => resp.json())
+        .then((res) => setRules({ loaded: true, data: res }));
     }
   };
 

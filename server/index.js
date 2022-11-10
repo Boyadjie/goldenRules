@@ -54,7 +54,7 @@ app.post("/rules/new-rule", (req, res) => {
       }
       console.log("New Rule successfully added to json");
     });
-    return res.status(201).send(`Rule ${req.body.title} has been created`);
+    return res.status(201).send(newData);
   }
 });
 
@@ -82,7 +82,7 @@ app.put("/rules/:id", (req, res) => {
         }
         console.log(`Rule ${id} updated successfully`);
       });
-      return res.status(201).send(`Rule ${req.body.title} has been updated`);
+      return res.status(201).send(data);
     } else {
       const newData = [
         ...data,
@@ -102,7 +102,7 @@ app.put("/rules/:id", (req, res) => {
         }
         console.log(`Rule ${id} created successfully`);
       });
-      return res.status(201).send(`Rule ${req.body.title} has been created`);
+      return res.status(201).send(newData);
     }
   }
 });
@@ -128,7 +128,7 @@ app.patch("/rules/:id", (req, res) => {
       }
       console.log(`Rule ${id} updated successfully`);
     });
-    return res.status(200).send(`Rule ${req.body.title} has been updated`);
+    return res.status(200).send(data);
   } else {
     return res.status(404).send(`Error: no rule found`);
   }
@@ -147,7 +147,7 @@ app.delete("/rules/:id", (req, res) => {
       }
       console.log(`Rule ${id} deleted successfully`);
     });
-    return res.status(200).send(`Rule ${req.body.title} has been deleted`);
+    return res.status(200).send(data);
   } else {
     return res.status(404).send(`Error: no rule found`);
   }
