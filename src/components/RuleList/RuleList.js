@@ -47,7 +47,7 @@ const RuleList = ({ rules, setRules }) => {
         headers: { "Content-Type": "application/json" },
       };
 
-      fetch(`/rules/${ruleId}`, requestOptions)
+      fetch(`https://golden-rules.vercel.app/rules/${ruleId}`, requestOptions)
         .then((resp) => resp.json())
         .then((res) => setRules({ loaded: true, data: res }));
     }

@@ -18,7 +18,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch("/rules");
+      const result = await fetch("https://golden-rules.vercel.app/rules");
       result.json().then((data) => {
         setRulesData({ loaded: true, data: data });
       });
