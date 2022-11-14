@@ -17,13 +17,18 @@ const App = () => {
   );
 
   useEffect(() => {
-    const requestOptions = {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
+    const fetchData = async () => {
+      const result = await fetch(
+        "https://golden-rules-server.vercel.app/rules"
+      );
+      result
+        .json()
+        .then((data) => {
+          setRulesData({ loaded: true, data: data });
+        })
+        .catch((e) => console.log(e));
     };
-    fetch(`https://golden-rules.vercel.app/rules`, requestOptions)
-      .then((resp) => resp.json())
-      .then((res) => setRulesData({ loaded: true, data: res }));
+    fetchData();
   }, []);
 
   return (
