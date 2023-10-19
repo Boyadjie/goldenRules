@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/goldenRules/static/css/main.46b5d130.css",
+    "main.css": "/goldenRules/static/css/main.bc2cdbe8.css",
     "main.js": "/goldenRules/static/js/main.30f3dc8e.js",
     "index.html": "/goldenRules/index.html",
-    "main.46b5d130.css.map": "/goldenRules/static/css/main.46b5d130.css.map",
+    "main.bc2cdbe8.css.map": "/goldenRules/static/css/main.bc2cdbe8.css.map",
     "main.30f3dc8e.js.map": "/goldenRules/static/js/main.30f3dc8e.js.map"
   },
   "entrypoints": [
-    "static/css/main.46b5d130.css",
+    "static/css/main.bc2cdbe8.css",
     "static/js/main.30f3dc8e.js"
   ]
 }
