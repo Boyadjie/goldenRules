@@ -1,9 +1,8 @@
 name: Create artifact
 
 on:
-  pull_request:
   push:
-    branches: ["main"]
+    branches: ["dev"]
 
 jobs:
   build:
@@ -20,30 +19,34 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - run: npm install
-      - run: npm run build --if-present
-      - run: ls -a
+      - run: npm run build
 
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
           path: build
+
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+      - run: npm install
+      - run: npm run build
   
   deploy:
     needs: build
-
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-
-    # Deploy to the github-pages environment
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    # Specify runner + deployment step
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+      - uses: actions/checkout@v3
+      - name: Build
+        
+        uses: actions/setup-node@v3
+      - run: npm install
+      - run: npm run build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build
